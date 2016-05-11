@@ -28,6 +28,23 @@
 + (Class)immutableCounterpartClass; { return [MIKMIDINoteOffCommand class]; }
 + (Class)mutableCounterpartClass; { return [MIKMutableMIDINoteOffCommand class]; }
 
+#ifdef BLUEBOARD_HACK
+- (instancetype)initWithMIDIPacket:(MIDIPacket *)packet
+{
+    self = [super initWithMIDIPacket:packet];
+    if (self) {
+        
+        // the iRig Blueboard sends a lot of note 0 in addition to the note you've pressed.
+        // this is a dirty hack that filters that out!
+        if (self.note == 0) {
+            return nil;
+        }
+        
+    }
+    return self;
+}
+#endif
+
 + (instancetype)noteOffCommandWithNote:(NSUInteger)note
 							  velocity:(NSUInteger)velocity
 							   channel:(UInt8)channel
