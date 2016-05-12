@@ -28,6 +28,7 @@
 + (Class)immutableCounterpartClass; { return [MIKMIDINoteOffCommand class]; }
 + (Class)mutableCounterpartClass; { return [MIKMutableMIDINoteOffCommand class]; }
 
+// enable this in the Preprocessor macro section of the corresponding Pods project target (MIKMIDI)
 #ifdef BLUEBOARD_HACK
 - (instancetype)initWithMIDIPacket:(MIDIPacket *)packet
 {

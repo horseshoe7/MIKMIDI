@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Mixed In Key. All rights reserved.
 //
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#else
+#if TARGET_OS_MAC
 #import <AppKit/AppKit.h>
+#else
+#import <UIKit/UIKit.h>
 #endif
 
 #import "MIKMIDIMappingManager.h"
@@ -175,7 +175,7 @@ static MIKMIDIMappingManager *sharedManager = nil;
 
 - (void)saveMappingsToDisk
 {
-#if !TARGET_OS_IPHONE
+
 	for (MIKMIDIMapping *mapping in self.userMappings) {
 		NSURL *fileURL = [self fileURLForMapping:mapping shouldBeUnique:NO];
 		if (!fileURL) {
@@ -185,7 +185,7 @@ static MIKMIDIMappingManager *sharedManager = nil;
 		
 		[mapping writeToFileAtURL:fileURL error:NULL];
 	}
-#endif
+
 }
 
 #pragma mark - Private
@@ -193,13 +193,27 @@ static MIKMIDIMappingManager *sharedManager = nil;
 - (NSURL *)userMappingsFolder
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	
+    NSString *mappingsFolder = nil;
+#if TARGET_OS_MAC
 	NSArray *appSupportFolders = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 	if (![appSupportFolders count]) return nil;
 	
 	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
 	if (![bundleID length]) bundleID = @"com.mixedinkey.MIKMIDI"; // Shouldn't happen, except perhaps in command line app.
-	NSString *mappingsFolder = [[[appSupportFolders lastObject] stringByAppendingPathComponent:bundleID] stringByAppendingPathComponent:@"MIDI Mappings"];
+	mappingsFolder = [[[appSupportFolders lastObject] stringByAppendingPathComponent:bundleID] stringByAppendingPathComponent:@"MIDI Mappings"];
+    
+#elif TARGET_OS_TV
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *basePath = paths.firstObject;
+    mappingsFolder = [basePath stringByAppendingPathComponent:@"MIDI Mappings"];
+#else
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = paths.firstObject;
+    mappingsFolder = [basePath stringByAppendingPathComponent:@"MIDI Mappings"];
+#endif
+    
+    
+    
 	BOOL isDirectory;
 	BOOL folderExists = [fm fileExistsAtPath:mappingsFolder isDirectory:&isDirectory];
 	if (!folderExists) {
