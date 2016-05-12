@@ -27,7 +27,7 @@
 
 @interface MIKMIDIMappingItem ()
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 - (instancetype)initWithXMLElement:(NSXMLElement *)element;
 - (NSXMLElement *)XMLRepresentation;
 #endif
@@ -71,7 +71,7 @@
 #endif // TARGET_OS_IPHONE
 }
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 - (instancetype)initWithXMLDocument:(NSXMLDocument *)xmlDocument
 {
 	self = [self init];
@@ -116,7 +116,7 @@
 	return userMapping;
 }
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 
 - (NSXMLDocument *)XMLRepresentation
 {
@@ -165,7 +165,7 @@
 
 - (NSString *)XMLStringRepresentation;
 {
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 	return [[self privateXMLRepresentation] XMLStringWithOptions:NSXMLNodePrettyPrint];
 #else
 	
@@ -364,7 +364,7 @@ CLEANUP_AND_EXIT:
 
 #pragma mark - Private
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 - (BOOL)loadPropertiesFromXMLDocument:(NSXMLDocument *)xmlDocument
 {
 	NSError *error = nil;

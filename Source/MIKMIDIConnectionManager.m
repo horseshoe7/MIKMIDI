@@ -13,7 +13,7 @@
 #import "MIKMIDINoteOnCommand.h"
 #import "MIKMIDINoteOffCommand.h"
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 #import <AppKit/NSApplication.h>
 #else
 #import <UIKit/UIApplication.h>

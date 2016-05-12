@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)userMappingFromBundledMapping:(MIKMIDIMapping *)bundledMapping;
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 /**
  *  Returns an NSXMLDocument representation of the receiver.
  *  The XML document returned by this method can be written to disk.

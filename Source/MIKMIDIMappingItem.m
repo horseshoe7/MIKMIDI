@@ -40,7 +40,7 @@
 	return [self initWithMIDIResponderIdentifier:@"Unknown" andCommandIdentifier:@"Unknown"];
 }
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element;
 {
@@ -159,7 +159,7 @@
 
 - (NSString *)XMLStringRepresentation
 {
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 	return [[self XMLRepresentation] XMLStringWithOptions:NSXMLNodePrettyPrint];
 #else
 	

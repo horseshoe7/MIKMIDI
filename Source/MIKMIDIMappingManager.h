@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (MIKArrayOf(MIKMIDIMapping *) *)mappingsWithName:(NSString *)mappingName;
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 /**
  *  Import and load a user-supplied MIDI mapping XML file. This method loads the MIDI mapping
  *  file specified by URL and adds it to the set returned by -userMappings. The newly imported mapping

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Mixed In Key. All rights reserved.
 //
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 #import <AppKit/AppKit.h>
 #else
 #import <UIKit/UIKit.h>
@@ -56,7 +56,7 @@ static MIKMIDIMappingManager *sharedManager = nil;
         [self loadAvailableUserMappings];
 		
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 		NSString *appTerminateNotification = NSApplicationWillTerminateNotification;
 #else
 		NSString *appTerminateNotification = UIApplicationWillTerminateNotification;
@@ -192,7 +192,7 @@ static MIKMIDIMappingManager *sharedManager = nil;
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
     NSString *mappingsFolder = nil;
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 	NSArray *appSupportFolders = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 	if (![appSupportFolders count]) return nil;
 	

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Mixed In Key. All rights reserved.
 //
 
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 
 #import "MIKMIDI.h"
 
@@ -103,5 +103,5 @@
 
 @end
 
-#endif // TARGET_OS_MAC
+#endif // !(TARGET_OS_IOS || TARGET_OS_TV)
 

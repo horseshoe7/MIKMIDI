@@ -206,7 +206,7 @@ static BOOL MIKObjectRespondsToMIDICommand(id object, MIKMIDICommand *command)
 		if ([window conformsToProtocol:@protocol(MIKMIDIResponder)]) {
 			[result unionSet:[self recursiveSubrespondersOfMIDIResponder:(id<MIKMIDIResponder>)window]];
 		}
-#if TARGET_OS_MAC
+#if !(TARGET_OS_IOS || TARGET_OS_TV)
 		if ([[window delegate] conformsToProtocol:@protocol(MIKMIDIResponder)]) {
 			[result unionSet:[self recursiveSubrespondersOfMIDIResponder:(id<MIKMIDIResponder>)[window delegate]]];
 		}
