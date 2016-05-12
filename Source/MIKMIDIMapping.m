@@ -48,7 +48,7 @@
 - (instancetype)initWithFileAtURL:(NSURL *)url error:(NSError **)error;
 {
 	error = error ? error : &(NSError *__autoreleasing){ nil };
-#if !TARGET_OS_MAC
+#if (TARGET_OS_IOS || TARGET_OS_TV)
 	// iOS
 	NSData *data = [NSData dataWithContentsOfURL:url options:0 error:error];
 	if (!data) return nil;
