@@ -27,7 +27,7 @@
 
 @interface MIKMIDIMappingItem ()
 
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_MAC
 - (instancetype)initWithXMLElement:(NSXMLElement *)element;
 - (NSXMLElement *)XMLRepresentation;
 #endif
@@ -48,7 +48,7 @@
 - (instancetype)initWithFileAtURL:(NSURL *)url error:(NSError **)error;
 {
 	error = error ? error : &(NSError *__autoreleasing){ nil };
-#if TARGET_OS_IPHONE
+#if !TARGET_OS_MAC
 	// iOS
 	NSData *data = [NSData dataWithContentsOfURL:url options:0 error:error];
 	if (!data) return nil;
@@ -71,7 +71,7 @@
 #endif // TARGET_OS_IPHONE
 }
 
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_MAC
 - (instancetype)initWithXMLDocument:(NSXMLDocument *)xmlDocument
 {
 	self = [self init];
@@ -116,7 +116,7 @@
 	return userMapping;
 }
 
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_MAC
 
 - (NSXMLDocument *)XMLRepresentation
 {
@@ -165,7 +165,7 @@
 
 - (NSString *)XMLStringRepresentation;
 {
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_MAC
 	return [[self privateXMLRepresentation] XMLStringWithOptions:NSXMLNodePrettyPrint];
 #else
 	
@@ -364,7 +364,7 @@ CLEANUP_AND_EXIT:
 
 #pragma mark - Private
 
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_MAC
 - (BOOL)loadPropertiesFromXMLDocument:(NSXMLDocument *)xmlDocument
 {
 	NSError *error = nil;

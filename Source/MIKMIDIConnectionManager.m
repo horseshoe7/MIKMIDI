@@ -13,10 +13,10 @@
 #import "MIKMIDINoteOnCommand.h"
 #import "MIKMIDINoteOffCommand.h"
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIApplication.h>
-#else
+#if TARGET_OS_MAC
 #import <AppKit/NSApplication.h>
+#else
+#import <UIKit/UIApplication.h>
 #endif
 
 void *MIKMIDIConnectionManagerKVOContext = &MIKMIDIConnectionManagerKVOContext;
@@ -74,7 +74,7 @@ BOOL MIKMIDINoteOffCommandCorrespondsWithNoteOnCommand(MIKMIDINoteOffCommand *no
 		[nc addObserver:self selector:@selector(endpointWasPluggedIn:) name:MIKMIDIVirtualEndpointWasAddedNotification object:nil];
 		[nc addObserver:self selector:@selector(endpointWasUnplugged:) name:MIKMIDIVirtualEndpointWasRemovedNotification object:nil];
 		
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 		[nc addObserver:self selector:@selector(saveConfigurationOnApplicationLifecycleEvent:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 		[nc addObserver:self selector:@selector(saveConfigurationOnApplicationLifecycleEvent:) name:UIApplicationWillTerminateNotification object:nil];
 #else

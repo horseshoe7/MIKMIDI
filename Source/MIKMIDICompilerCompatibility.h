@@ -52,7 +52,7 @@
 
 // On OS X 10.7, many classes (e.g. NSViewController) can't be the target of a weak
 // reference, so we use unsafe_unretained there.
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_8)
+#if TARGET_OS_IPHONE || TARGET_OS_TV || (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_8)
 #define MIKTargetSafeWeak weak
 #else
 #define MIKTargetSafeWeak unsafe_unretained

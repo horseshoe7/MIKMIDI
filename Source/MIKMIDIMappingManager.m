@@ -56,7 +56,7 @@ static MIKMIDIMappingManager *sharedManager = nil;
         [self loadAvailableUserMappings];
 		
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_MAC
 		NSString *appTerminateNotification = NSApplicationWillTerminateNotification;
 #else
 		NSString *appTerminateNotification = UIApplicationWillTerminateNotification;
@@ -146,7 +146,7 @@ static MIKMIDIMappingManager *sharedManager = nil;
 
 - (MIKMIDIMapping *)importMappingFromFileAtURL:(NSURL *)URL overwritingExistingMapping:(BOOL)shouldOverwrite error:(NSError **)error;
 {
-#if !TARGET_OS_IPHONE
+
 	error = error ? error : &(NSError *__autoreleasing){ nil };
 	if (![[URL pathExtension] isEqualToString:kMIKMIDIMappingFileExtension]) {
 		NSString *recoverySuggestion = [NSString stringWithFormat:NSLocalizedString(@"%1$@ can't be imported, because it does not have the file extension %2$@.", @"MIDI mapping import failed because of incorrect file extension message. Placeholder 1 is the filename, 2 is the required extension (e.g. 'midimap')")];
@@ -169,8 +169,6 @@ static MIKMIDIMappingManager *sharedManager = nil;
 	
 	[self addUserMappingsObject:mapping];
 	return mapping;
-#endif // TARGET_OS_IPHONE
-	return nil;
 }
 
 - (void)saveMappingsToDisk
