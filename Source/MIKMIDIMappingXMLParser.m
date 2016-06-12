@@ -14,6 +14,7 @@
 @interface NSString (MIKMIDIMappingXMLParserUtilities)
 
 - (NSString *)mik_uncapitalizedString;
+- (unsigned long long)unsignedLongLongValue;
 
 @end
 
@@ -178,6 +179,11 @@
 	NSString *firstCharacter = [self substringToIndex:1];
 	[scratch replaceCharactersInRange:NSMakeRange(0, 1) withString:[firstCharacter lowercaseString]];
 	return [scratch copy];
+}
+
+- (unsigned long long)unsignedLongLongValue
+{
+    return self.longLongValue;
 }
 
 @end
